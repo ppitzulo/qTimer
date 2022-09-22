@@ -1,4 +1,5 @@
-import React, { useState} from 'react';
+import React, { useState, useRef } from 'react';
+import { useWhatChanged } from '@simbathesailor/use-what-changed'
 // import Dexie, { Table } from 'dexie';
 import './Timer.css';
 import { db } from '../../db';
@@ -11,11 +12,21 @@ const Timer = () => {
     const [isActive, setIsActive] = useState(false);
     const [firstRun, setFirstRun] = useState(true);
     const [start, setStart] = useState(0);
-    // const [intervalID, setIntervalID] = us(0);
+    const isInitialMount = useRef(true);
+    let deps = [isActive, time, firstRun, start];
+
+    React.useEffect(() => {
+        if (isInitialMount.current) {
+            isInitialMount.current = false;
+        }
+        else if (!isActive) {
+            addTime(time);
+        }
+    }, [isActive]);
 
     React.useEffect(() => {
         let counterId;
-
+        
         if (isActive) {
             if (firstRun) {
                 setStart(Date.now());
@@ -26,7 +37,6 @@ const Timer = () => {
             }, 1);
         }
         else {
-            setTime(0);
             setFirstRun(true);
         }
 
@@ -35,6 +45,17 @@ const Timer = () => {
         }
     }, [time, isActive, start, firstRun]);
 
+    
+
+    function addTime(time) {
+        try {
+            const id = db.pastSolves.add({
+                time
+            });
+        } catch(error) {
+            console.log(`Failed to add ${time}: ${error}`);
+        }
+    }
 
     function extractDigit(place, digit) {
         for (; place > 0; place--) {
