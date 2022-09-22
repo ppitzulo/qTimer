@@ -1,23 +1,18 @@
 import React, { useState, useRef } from 'react';
+import { Scrambler } from '../../Components';
 import './Timer.css';
 import { db } from '../../db';
-
-
 
 
 const Timer = () => {
     const [time, setTime] = useState(0);
     const [isActive, setIsActive] = useState(false);
-    // const [firstRun, setFirstRun] = useState(true);
-    // const [start, setStart] = useState(0);
-    const isInitialMount = useRef(true);
+
     const firstRun = useRef(true);
     const start = useRef(0);
+    
     React.useEffect(() => {
-        if (isInitialMount.current) {
-            isInitialMount.current = false;
-        }
-        else if (!isActive) {
+        if (!isActive) {
             addTime(time);
         }
     }, [isActive, time]);
@@ -48,7 +43,7 @@ const Timer = () => {
     function addTime(time) {
         try {
             db.pastSolves.add({
-                time
+                time: time,
             });
         } catch(error) {
             console.log(`Failed to add ${time}: ${error}`);
@@ -62,9 +57,17 @@ const Timer = () => {
         return Math.floor(digit % 10);
     }
 
+    React.useEffect(() => {
+        window.addEventListener("keydown", (e) => {if (e.key === ' ') {setIsActive(isActive => !isActive)}});
+
+        return () => {
+            window.removeEventListener("keydown", (e) => {if (e.key === ' ') {setIsActive(isActive => !isActive)}});
+        }
+    }, []);
 
     return (
         <div class="Timer">
+            <Scrambler isActive={isActive}/>
             <div class="Segments" onClick={() => setIsActive(isActive => !isActive)}>
                 <div class="minuteSegment" style={{color: "green"}}>
                     <span>{extractDigit(4, time) === 0 ? "" : extractDigit(4,time) % 6}</span>

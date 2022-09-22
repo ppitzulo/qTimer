@@ -35,6 +35,7 @@ const Stats = () => {
     }
 
     function computeAverage(pastSolves, numOfSolves) {
+        console.log(numOfSolves);
         if (pastSolves.length < numOfSolves) {return 0}
         
         let solveTime = 0;
