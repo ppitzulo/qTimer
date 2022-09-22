@@ -68,28 +68,28 @@ const Timer = ({isActive, setIsActive}) => {
     }, [setIsActive]);
 
     return (
-        <div class="TimerContainer">
+        <div className="TimerContainer">
             <Scrambler isActive={isActive}/>
-            <div class="Timer">
+            <div className="Timer">
                 {!inspectionTimeEnabled ? 
-                <div class="Segments" onClick={() => setIsActive(isActive => !isActive)}>
-                    <div class="minuteSegment" style={{color: "green"}}>
+                <div className="Segments" onClick={() => setIsActive(isActive => !isActive)}>
+                    <div className="minuteSegment" style={{color: "green"}}>
                         <span>{time >= 6000 ? Math.floor((Math.floor(time/100)) / 60) : ""}</span>
                         <span>{time >= 6000 ? ":" : ""}</span>
                     </div>
-                    <div class="secondSegment" style={{color: "green"}}>
+                    <div className="secondSegment" style={{color: "green"}}>
                         <span>{time >= 1000 ? Math.floor(time / 1000) % 6 : ""}</span>
                         <span>{Math.floor(time / 100) % 10}</span>
                         <span>.</span>
                     </div>
-                    <div class="millisecondSegment" style={{color: "green"}}>
+                    <div className="millisecondSegment" style={{color: "green"}}>
                         <span>{Math.floor(time / 10) % 10}</span> 
                         <span>{!isActive ? time % 10 : ""}</span>  
                     </div>
                 </div>
                 :
-                <div class="inspectionTimer" onClick={isActive ? () => enableInspectionTime(inspectionTimeEnabled => !inspectionTimeEnabled) : () => setIsActive(isActive => !isActive)}>
-                    <div class="secondSegment">
+                <div className="inspectionTimer" onClick={isActive ? () => enableInspectionTime(inspectionTimeEnabled => !inspectionTimeEnabled) : () => setIsActive(isActive => !isActive)}>
+                    <div className="secondSegment">
                         <span>{time ? time : "DNF"}</span>
                     </div>
                 </div>

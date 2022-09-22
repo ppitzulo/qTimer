@@ -45,7 +45,7 @@ const Scrambler = ({ isActive }) => {
     }, [isActive]);
 
     return (
-        <div class="Scramble">
+        <div className="Scramble">
             {updateScramble}
         </div>
     )

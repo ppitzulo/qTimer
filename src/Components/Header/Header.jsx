@@ -4,9 +4,9 @@ import './Header.css';
 
 const Header = () => {
     return (
-        <div class="Header">
+        <div className="Header">
                 <img src={Icon} alt="Black and white speed cube."/>
-                <div class="Title">
+                <div className="Title">
                     qTimer
                 </div>
         </div>

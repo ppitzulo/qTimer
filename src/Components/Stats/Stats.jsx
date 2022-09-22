@@ -41,8 +41,8 @@ const Stats = ({isActive}) => {
     }
     
     function getBestTime(pastSolves) {
-        if (pastSolves.length == 0) { return 0; }
-        
+        if (pastSolves.length === 0) { return 0; }
+
         let bestTime = -1;
 
         for (let i = 0; i < pastSolves.length; i++) {
@@ -54,8 +54,8 @@ const Stats = ({isActive}) => {
     }
 
     return (
-        <div class="statsContainer">
-            <div class="Statistics bRadius">
+        <div className="statsContainer">
+            <div className="Statistics bRadius">
                 <span>
                     Best: {formatTime(getBestTime(pastSolves))}
                 </span>
@@ -66,7 +66,7 @@ const Stats = ({isActive}) => {
                     Ao12 {formatTime(computeAverage(pastSolves, 12))}
                 </span>
             </div>
-            <div class="Graph bRadius">
+            <div className="Graph bRadius">
                 <ResponsiveContainer width="100%">
                     <AreaChart  data={pastSolves} options={{maintainAspectRatio: false}}>
                         <XAxis dataKey="id"/>
@@ -76,8 +76,8 @@ const Stats = ({isActive}) => {
                     </AreaChart>
                 </ResponsiveContainer>
             </div>
-            <div class="timesContainer bRadius">
-                <div class="Times">
+            <div className="timesContainer bRadius">
+                <div className="Times">
                     {
                         pastSolves.slice(0).reverse().map((solve) => (
                             <div>
