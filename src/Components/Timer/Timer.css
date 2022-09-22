@@ -1,0 +1,27 @@
+.Segments {
+    display: flex;
+    flex-direction: row;
+    /* margin: 0 auto; */
+    justify-content: center;
+    font-size: 6rem;
+    font-family: 'Orbitron', sans-serif;
+    /* color: red; */
+    
+    /* width: 50%; */
+
+    /* width: 100%; */
+}
+
+.millisecondSegment {
+    font-size: 0.75em;
+    padding-top: 1.5rem;
+}
+
+.Timer {
+    /* padding-left: auto; */
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    cursor: pointer;
+}
