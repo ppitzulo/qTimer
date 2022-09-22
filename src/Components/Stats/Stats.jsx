@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { AreaChart, XAxis, Tooltip, YAxis, ResponsiveContainer, Area } from 'recharts';
 import './Stats.css';
-import { useLiveQuery } from 'dexie-react-hooks';
 import { db } from '../../db'
 
 
@@ -9,7 +8,6 @@ const Stats = ({isActive}) => {
     const [pastSolves, setPastSolves] = useState([]);
 
     React.useEffect(() => {
-        console.log("isacasdf")
         if (!isActive) {
             db.pastSolves.orderBy('id').toArray().then(result => {
                 setPastSolves(result);
@@ -26,7 +24,11 @@ const Stats = ({isActive}) => {
         s = (s - secs) / 60;
         let mins = s % 60;
 
+        // if ()
         if (mins > 0) { time += mins + ':'; }
+        if (mins > 0 && secs > 0 && secs < 10) { time += '0'; }
+// if (secs > 0) { time += secs + ':'; }
+        
         // if (secs > 0) { time += secs + '.'; }
 
         return time + secs + '.' + ms;

@@ -5,8 +5,8 @@ import { db } from '../../db';
 
 
 const Timer = ({isActive, setIsActive}) => {
-    const [time, setTime] = useState(15);
-    const [inspectionTimeEnabled, enableInspectionTime] = useState(true);
+    const [time, setTime] = useState(0);
+    const [inspectionTimeEnabled, enableInspectionTime] = useState(false);
     const firstRun = useRef(true);
     const start = useRef(0);
     
