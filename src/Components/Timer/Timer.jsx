@@ -28,7 +28,7 @@ const Timer = ({isActive, setIsActive}) => {
                 firstRun.current = false;
             }
             counterId = setInterval(() => {
-                setTime(Math.floor((Date.now() - start.current)/100));
+                setTime(Math.floor((Date.now() - start.current)/10));
             }, 1);
         }
         else {
@@ -52,13 +52,6 @@ const Timer = ({isActive, setIsActive}) => {
         }
     }
 
-    function extractDigit(place, digit) {
-        for (; place > 0; place--) {
-            digit /= 10;
-        }
-        return Math.floor(digit % 10);
-    }
-
     React.useEffect(() => {
         window.addEventListener("keydown", (e) => {if (e.key === ' ') {setIsActive(isActive => !isActive)}});
 
@@ -73,17 +66,19 @@ const Timer = ({isActive, setIsActive}) => {
             <div class="Timer">
                 <div class="Segments" onClick={() => setIsActive(isActive => !isActive)}>
                     <div class="minuteSegment" style={{color: "green"}}>
-                        <span>{extractDigit(4, time) === 0 ? "" : extractDigit(4,time) % 6}</span>
-                        <span>{extractDigit(3, time)}</span>
-                        <span>:</span>
+                        {/* <span>{extractDigit(4, time) === 0 ? "" : extractDigit(4,time) % 6}</span> */}
+                        {/* <span>{time >= 60000 ? Math.floor(time/10000) % 6 : ""} </span> */}
+                        <span>{time >= 6000 ? Math.floor((Math.floor(time/100)) / 60) : ""}</span>
+                        <span>{time >= 6000 ? ":" : ""}</span>
                     </div>
                     <div class="secondSegment" style={{color: "green"}}>
-                        <span>{extractDigit(2, time)%6}</span>
-                        <span>{extractDigit(1, time)}</span>
+                        <span>{time >= 1000 ? Math.floor(time / 1000) % 6 : ""}</span>
+                        <span>{Math.floor(time / 100) % 10}</span>
                         <span>.</span>
                     </div>
                     <div class="millisecondSegment" style={{color: "green"}}>
-                        <span>{extractDigit(0, time)}</span>                    
+                        <span>{Math.floor(time / 10) % 10}</span> 
+                        <span>{!isActive ? time % 10 : ""}</span>  
                     </div>
                 </div>
             </div>

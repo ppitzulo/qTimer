@@ -11,38 +11,16 @@ const Stats = ({isActive}) => {
     React.useEffect(() => {
         console.log("isacasdf")
         if (!isActive) {
-            // console.log("!isActive")
-            // console.log("terhoaidf")
             db.pastSolves.orderBy('id').toArray().then(result => {
-                console.log(result.length-1);
-                console.log(result)
-                // console.log("test")
-                // if (result.length == 0) {
-                //     for (let i = 0; i < result.length; i++) {
-                //                     // setPastSolves(array => [...array, {id: result[result.length-1].id, time: result[result.length-1].time}]);
-                //     //TODO: Figure out what this is adding the orig contents of the array twice.
-                //         setPastSolves(array => [...array, {id: result[i].id, time: result[i].time}]);
-                //     }
-                // }
-                // else {
-                    setPastSolves(result);
-                    // setPastSolves(array => [...array, {id: result[result.length-1].id, time: result[result.length-1].time}]);
-                // }
+                setPastSolves(result);
+
         })}
     }, [isActive]);
-
-    // const updateSolves = useLiveQuery(() =>
-    //     db.pastSolves.orderBy('id').toArray().then(result => {
-    //             // if (result.length == 0) {return [];}
-    //             // setPastSolves(array => [...array, {id: result[result.length-1].id, time: result[result.length-1].time}]);
-    //             console.log("ran");
-    //     }));
-
     
     function formatTime(s) {
         // let formattedTime = "";
-        var ms = s % 10;
-        s = (s - ms) / 10;
+        var ms = s % 100;
+        s = (s - ms) / 100;
         var secs = s % 60;
         s = (s - secs) / 60;
         var mins = s % 60;
@@ -67,13 +45,24 @@ const Stats = ({isActive}) => {
         // }
         return Math.floor(solveTime/numOfSolves);
     }
+    
+    function getBestTime(pastSolves) {
+        let bestTime = -1;
+
+        for (let i = 0; i < pastSolves.length; i++) {
+            if (bestTime == -1 || pastSolves[i].time < bestTime) {
+                bestTime = pastSolves[i].time;
+            }
+        }
+        return bestTime;
+    }
 
     return (
         <div class="Stats">
             <div class="StatsContainer">
                 <ul>
                     <li>
-                        Best: {formatTime(191)}
+                        Best: {formatTime(getBestTime(pastSolves))}
                     </li>
                     <li>
                         Ao5: {formatTime(computeAverage(pastSolves, 5))}
