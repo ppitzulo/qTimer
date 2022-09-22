@@ -22,18 +22,41 @@ const Stats = () => {
             console.log(pastSolves);
         }));
 
+    
+    function formatTime(s) {
+        // let formattedTime = "";
+        var ms = s % 10;
+        s = (s - ms) / 10;
+        var secs = s % 60;
+        s = (s - secs) / 60;
+        var mins = s % 60;
+
+        return mins + ':' + secs + '.' + ms;
+    }
+
+    function computeAverage(pastSolves, numOfSolves) {
+        if (pastSolves.length < numOfSolves) {return 0}
+        
+        let solveTime = 0;
+
+        for (let i = pastSolves.length - (numOfSolves+1); i < pastSolves.length; i++) {
+            solveTime += pastSolves[i].time;
+        }
+        return Math.floor(solveTime/numOfSolves);
+    }
+
     return (
         <div class="Stats">
             <div class="StatsContainer">
                 <ul>
                     <li>
-                        Best:
+                        Best: {formatTime(191)}
                     </li>
                     <li>
-                        Ao5
+                        Ao5: {formatTime(computeAverage(pastSolves, 5))}
                     </li>
                     <li>
-                        Ao12
+                        Ao12 {formatTime(computeAverage(pastSolves, 12))}
                     </li>
                 </ul>
             </div>
