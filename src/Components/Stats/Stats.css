@@ -1,19 +1,16 @@
 .Stats {
     display: flex;
-    flex-direction: row;
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid black;
+    /* flex-direction: row; */
     /* flex-flow: center; */
-    justify-content: center;
-    height: 20%;
-}
-
-.Bo5 {
-    border-color: black;
-    /* border: 1rem; */
+    /* justify-content: center; */
+    height: 19%;
     background-color: #fff;
-    /* border-radius: 2rem; */
-    width: 25%;
-    font-size: larger;
-    /* list-style-type: none; */
+    width: 50%;
+    border-radius: 1rem;
+    box-shadow: 1px 2px 0px 1px black;
 }
 
 ul {
@@ -24,17 +21,12 @@ li {
     margin: 1rem;
 }
 
-
-.Stats {
-    /* background-color: #222222; */
-    /* background-color: #565554; */
-    /* border-radius: 2rem; */
-    background-color: #fff;
-    width: 50%;
+.StatsContainer {
+    width: 15%;
 }
 
 .Graph {
-    width: 100%;
+    width: 85%;
 }
 /* .Graph::after {
     position:absolute;

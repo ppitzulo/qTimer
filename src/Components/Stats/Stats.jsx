@@ -1,19 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { AreaChart, Line, XAxis, Tooltip, Legend, YAxis, ResponsiveContainer, Area } from 'recharts';
 import './Stats.css';
-// const data = [{name: 'Page A', uv: 400, pv: 2400, amt: 2400}, ...];
+import { useLiveQuery } from 'dexie-react-hooks';
+import { db } from '../../db'
 
 
 const Stats = () => {
-    // let pastSolves = {"Value": 1, "Value": 2, "Value": 3}
-    const pastSolves = [];
+    const [pastSolves, setPastSolves] = useState([]);
 
-    for (let i = 0; i <= 30; i++) {
-        pastSolves.push({
-            date: Math.floor(Math.random() * 10),
-            value: Math.floor(Math.random() * 10),
+    React.useEffect(() => {
+        db.pastSolves.orderBy('id').toArray().then(result => {
+            for (let i = 0; i < result.length; i++) {
+                setPastSolves(array => [...array, {id: result[i].id, time: result[i].time}]);
+            }
         })
-    }
+    }, []);
+
+    const updateSolves = useLiveQuery(() =>
+        db.pastSolves.orderBy('id').toArray().then(result => {
+                setPastSolves(array => [...array, {id: result[result.length-1].id, time: result[result.length-1].time}]);
+            console.log(pastSolves);
+        }));
+
     return (
         <div class="Stats">
             <div class="StatsContainer">
@@ -32,10 +40,10 @@ const Stats = () => {
             <div class="Graph">
                 <ResponsiveContainer width="100%">
                     <AreaChart  data={pastSolves} options={{maintainAspectRatio: false}}>
-                        <XAxis dataKey="date"/>
+                        <XAxis dataKey="id"/>
                         <Tooltip />
-                        <YAxis />
-                        <Area type="monotone" dataKey="value"/>
+                        <YAxis dataKey="time"/>
+                        <Area type="monotone" dataKey="time"/>
                     </AreaChart>
                 </ResponsiveContainer>
             </div>
