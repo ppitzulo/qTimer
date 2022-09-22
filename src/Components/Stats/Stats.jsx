@@ -24,31 +24,19 @@ const Stats = ({isActive}) => {
         s = (s - secs) / 60;
         let mins = s % 60;
 
-        // if ()
         if (mins > 0) { time += mins + ':'; }
         if (mins > 0 && secs > 0 && secs < 10) { time += '0'; }
-// if (secs > 0) { time += secs + ':'; }
-        
-        // if (secs > 0) { time += secs + '.'; }
-
         return time + secs + '.' + ms;
     }
 
     function computeAverage(pastSolves, numOfSolves) {
-        // console.log("Numsolves: " + numOfSolves);
-        // console.log("pastSolvres lenght: " + pastSolves.length);
-
         if (pastSolves.length < numOfSolves) {return 0}
         
         let solveTime = 0;
 
         for (let i = pastSolves.length - 1; i > pastSolves.length - (numOfSolves - 1); i--) {
-            // console.log("i: " + i);
             solveTime += pastSolves[i].time;
         }
-        // for (let i = pastSolves.length - (numOfSolves+1); i < pastSolves.length; i++) {
-        //     solveTime += pastSolves[i].time;
-        // }
         return Math.floor(solveTime/numOfSolves);
     }
     

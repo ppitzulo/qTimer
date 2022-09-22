@@ -32,7 +32,6 @@ const Timer = ({isActive, setIsActive}) => {
                 setIsActive(isActive => !isActive);
             }
             counterId = setInterval(() => {
-                // Try to calculate WCA inspection time using 15 seconds - current time from stopwatch in seconds
                 inspectionTimeEnabled ? setTime(15 - Math.floor((Date.now() - start.current)/1000)) :  setTime(Math.floor((Date.now() - start.current)/10));
             }, 1);
             
@@ -72,8 +71,6 @@ const Timer = ({isActive, setIsActive}) => {
                 {!inspectionTimeEnabled ? 
                 <div class="Segments" onClick={() => setIsActive(isActive => !isActive)}>
                     <div class="minuteSegment" style={{color: "green"}}>
-                        {/* <span>{extractDigit(4, time) === 0 ? "" : extractDigit(4,time) % 6}</span> */}
-                        {/* <span>{time >= 60000 ? Math.floor(time/10000) % 6 : ""} </span> */}
                         <span>{time >= 6000 ? Math.floor((Math.floor(time/100)) / 60) : ""}</span>
                         <span>{time >= 6000 ? ":" : ""}</span>
                     </div>

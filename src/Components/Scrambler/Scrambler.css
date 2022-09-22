@@ -1,11 +1,12 @@
 .Scramble {
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 22px;
+    font-size: 2.5rem;
     font-weight: bold;
     text-align: center;
 }
 @media (max-width: 480px) {
     .Scramble {
         margin-top: 3rem;
+        font-size: 1.5rem;
     }
 }

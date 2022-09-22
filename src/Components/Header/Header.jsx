@@ -1,10 +1,10 @@
 import React from 'react';
-import './Navbar.css';
+import './Header.css';
 
 
-const Navbar = () => {
+const Header = () => {
     return (
-        <div class="navbar">
+        <div class="Header">
                 <img src="images/rubic.svg"/>
                 <div class="Title">
                     qTimer
@@ -13,4 +13,4 @@ const Navbar = () => {
     )
 }
 
-export default Navbar;
+export default Header;
