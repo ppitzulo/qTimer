@@ -1,6 +1,4 @@
 import React, { useState, useRef } from 'react';
-import { useWhatChanged } from '@simbathesailor/use-what-changed'
-// import Dexie, { Table } from 'dexie';
 import './Timer.css';
 import { db } from '../../db';
 
@@ -10,11 +8,11 @@ import { db } from '../../db';
 const Timer = () => {
     const [time, setTime] = useState(0);
     const [isActive, setIsActive] = useState(false);
-    const [firstRun, setFirstRun] = useState(true);
-    const [start, setStart] = useState(0);
+    // const [firstRun, setFirstRun] = useState(true);
+    // const [start, setStart] = useState(0);
     const isInitialMount = useRef(true);
-    let deps = [isActive, time, firstRun, start];
-
+    const firstRun = useRef(true);
+    const start = useRef(0);
     React.useEffect(() => {
         if (isInitialMount.current) {
             isInitialMount.current = false;
@@ -22,34 +20,34 @@ const Timer = () => {
         else if (!isActive) {
             addTime(time);
         }
-    }, [isActive]);
+    }, [isActive, time]);
 
     React.useEffect(() => {
         let counterId;
         
         if (isActive) {
-            if (firstRun) {
-                setStart(Date.now());
-                setFirstRun(false);
+            if (firstRun.current) {
+                start.current = Date.now();
+                firstRun.current = false;
             }
             counterId = setInterval(() => {
-                setTime(Math.floor((Date.now() - start)/100));
+                setTime(Math.floor((Date.now() - start.current)/100));
             }, 1);
         }
         else {
-            setFirstRun(true);
+            firstRun.current = true;
         }
 
         return () => {
             clearTimeout(counterId);
         }
-    }, [time, isActive, start, firstRun]);
+    }, [time, isActive]);
 
     
 
     function addTime(time) {
         try {
-            const id = db.pastSolves.add({
+            db.pastSolves.add({
                 time
             });
         } catch(error) {
