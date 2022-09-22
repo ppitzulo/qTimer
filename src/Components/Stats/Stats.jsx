@@ -73,7 +73,7 @@ const Stats = ({isActive}) => {
                 </ul>
             </div>
             <div class="Graph">
-                <ResponsiveContainer width="100%" height="100%">
+                <ResponsiveContainer width="100%">
                     <AreaChart  data={pastSolves} options={{maintainAspectRatio: false}}>
                         <XAxis dataKey="id"/>
                         <Tooltip />

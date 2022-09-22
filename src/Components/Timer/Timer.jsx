@@ -5,16 +5,17 @@ import { db } from '../../db';
 
 
 const Timer = ({isActive, setIsActive}) => {
-    const [time, setTime] = useState(0);
-
+    const [time, setTime] = useState(15);
+    const [inspectionTimeEnabled, enableInspectionTime] = useState(true);
     const firstRun = useRef(true);
     const start = useRef(0);
     
     React.useEffect(() => {
-        if (!firstRun.current) {
-            if (!isActive) {
-                addTime(time);
-                console.log("Added time");
+        if (!inspectionTimeEnabled) {
+            if (!firstRun.current) {
+                if (!isActive) {
+                    addTime(time);
+                }
             }
         }
     }, [isActive, time]);
@@ -27,14 +28,18 @@ const Timer = ({isActive, setIsActive}) => {
                 start.current = Date.now();
                 firstRun.current = false;
             }
+            if (inspectionTimeEnabled && time == 0) {
+                setIsActive(isActive => !isActive);
+            }
             counterId = setInterval(() => {
-                setTime(Math.floor((Date.now() - start.current)/10));
+                // Try to calculate WCA inspection time using 15 seconds - current time from stopwatch in seconds
+                inspectionTimeEnabled ? setTime(15 - Math.floor((Date.now() - start.current)/1000)) :  setTime(Math.floor((Date.now() - start.current)/10));
             }, 1);
+            
         }
         else {
             firstRun.current = true;
         }
-
         return () => {
             clearTimeout(counterId);
         }
@@ -64,6 +69,7 @@ const Timer = ({isActive, setIsActive}) => {
         <div class="TimerContainer">
             <Scrambler isActive={isActive}/>
             <div class="Timer">
+                {!inspectionTimeEnabled ? 
                 <div class="Segments" onClick={() => setIsActive(isActive => !isActive)}>
                     <div class="minuteSegment" style={{color: "green"}}>
                         {/* <span>{extractDigit(4, time) === 0 ? "" : extractDigit(4,time) % 6}</span> */}
@@ -81,6 +87,13 @@ const Timer = ({isActive, setIsActive}) => {
                         <span>{!isActive ? time % 10 : ""}</span>  
                     </div>
                 </div>
+                :
+                <div class="inspectionTimer" onClick={isActive ? () => enableInspectionTime(inspectionTimeEnabled => !inspectionTimeEnabled) : () => setIsActive(isActive => !isActive)}>
+                    <div class="secondSegment">
+                        <span>{time ? time : "DNF"}</span>
+                    </div>
+                </div>
+                }
             </div>
         </div>
     )
