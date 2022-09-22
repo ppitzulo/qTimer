@@ -44,7 +44,7 @@ const Stats = ({isActive}) => {
         let bestTime = -1;
 
         for (let i = 0; i < pastSolves.length; i++) {
-            if (bestTime == -1 || pastSolves[i].time < bestTime) {
+            if (bestTime === -1 || pastSolves[i].time < bestTime) {
                 bestTime = pastSolves[i].time;
             }
         }

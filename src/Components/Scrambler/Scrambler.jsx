@@ -16,8 +16,6 @@ const Scrambler = ({ isActive }) => {
             let scramble = "";
 
             for (let i = 0; i < 25; i++) {
-                // console.log(move);
-                // TODO: Check if first move using the counter
                 if(scramble.length === 0) {
                     move = moves[genRandomNum(6)];
                 }
@@ -37,16 +35,12 @@ const Scrambler = ({ isActive }) => {
                         {
                             move += '2';
                             break;
-                        }
-                
+                        }   
                 }
-
-                // setScramble(scramble + move + ' ');
                 scramble += move + ' ';
-                setScramble(scramble);
             }
-            console.log(scramble);
-            console.log(scramble.split().length);
+            setScramble(scramble);
+
         }
     }, [isActive]);
 

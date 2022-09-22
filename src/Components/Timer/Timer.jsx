@@ -8,6 +8,7 @@ const Timer = ({isActive, setIsActive}) => {
     const [time, setTime] = useState(0);
     const [inspectionTimeEnabled, enableInspectionTime] = useState(false);
     const firstRun = useRef(true);
+    const listenerEnabled = useRef(false);
     const start = useRef(0);
     
     React.useEffect(() => {
@@ -28,7 +29,7 @@ const Timer = ({isActive, setIsActive}) => {
                 start.current = Date.now();
                 firstRun.current = false;
             }
-            if (inspectionTimeEnabled && time == 0) {
+            if (inspectionTimeEnabled && time === 0) {
                 setIsActive(isActive => !isActive);
             }
             counterId = setInterval(() => {
@@ -57,12 +58,14 @@ const Timer = ({isActive, setIsActive}) => {
     }
 
     React.useEffect(() => {
-        window.addEventListener("keydown", (e) => {if (e.key === ' ') {setIsActive(isActive => !isActive)}});
-
+        if (!listenerEnabled.current) {
+            window.addEventListener("keydown", (e) => {if (e.key === ' ') {setIsActive(isActive => !isActive)}});
+            listenerEnabled.current = true;
+        }
         return () => {
             window.removeEventListener("keydown", (e) => {if (e.key === ' ') {setIsActive(isActive => !isActive)}});
         }
-    }, []);
+    }, [setIsActive]);
 
     return (
         <div class="TimerContainer">
