@@ -41,6 +41,8 @@ const Stats = ({isActive}) => {
     }
     
     function getBestTime(pastSolves) {
+        if (pastSolves.length == 0) { return 0; }
+        
         let bestTime = -1;
 
         for (let i = 0; i < pastSolves.length; i++) {
