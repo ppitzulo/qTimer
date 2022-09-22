@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState} from 'react';
 // import Dexie, { Table } from 'dexie';
 import './Timer.css';
 import { db } from '../../db';
@@ -7,15 +7,12 @@ import { db } from '../../db';
 
 
 const Timer = () => {
-
     const [time, setTime] = useState(0);
     const [isActive, setIsActive] = useState(false);
     const [firstRun, setFirstRun] = useState(true);
     const [start, setStart] = useState(0);
     // const [intervalID, setIntervalID] = us(0);
-    const intervalID = useRef(0);
 
-    console.log("IntervalID: " + intervalID.current);
     React.useEffect(() => {
         let counterId;
 
@@ -25,54 +22,43 @@ const Timer = () => {
                 setFirstRun(false);
             }
             counterId = setInterval(() => {
-                setTime(Date.now() - start);
+                setTime(Math.floor((Date.now() - start)/100));
             }, 1);
         }
         else {
             setTime(0);
             setFirstRun(true);
-
         }
 
         return () => {
             clearTimeout(counterId);
         }
-    }, [time, isActive, isActive, start]);
+    }, [time, isActive, start, firstRun]);
 
-    const setActive = (isActive) => {
-        setIsActive({});
-        console.log("test")
-    }
 
-    function getMiliseconds(time, totalMiliseconds) {
-        return String((totalMiliseconds - (time * 1000)))[0];
-    }
-
-    async function addTime(time) {
-        try {
-            const id = await db.pastSolves.add({
-                time
-            });
-        } catch(error) {
-            console.log(`Failed to add ${time}: ${error}`);
+    function extractDigit(place, digit) {
+        for (; place > 0; place--) {
+            digit /= 10;
         }
+        return Math.floor(digit % 10);
     }
+
 
     return (
         <div class="Timer">
             <div class="Segments" onClick={() => setIsActive(isActive => !isActive)}>
                 <div class="minuteSegment" style={{color: "green"}}>
-                    <span>{String(parseInt(time/60000)%60)[0]}</span>
-                    <span>{String(parseInt(time/60000)%60)[1]}</span>
+                    <span>{extractDigit(4, time) === 0 ? "" : extractDigit(4,time) % 6}</span>
+                    <span>{extractDigit(3, time)}</span>
                     <span>:</span>
                 </div>
                 <div class="secondSegment" style={{color: "green"}}>
-                    <span>{String(parseInt(time/1000)%60)[0]}</span>
-                    <span>{String(parseInt(time/1000)%60)[1]}</span>
+                    <span>{extractDigit(2, time)%6}</span>
+                    <span>{extractDigit(1, time)}</span>
                     <span>.</span>
                 </div>
                 <div class="millisecondSegment" style={{color: "green"}}>
-                    <span>{getMiliseconds((parseInt(time/1000)%60), time)}</span>
+                    <span>{extractDigit(0, time)}</span>                    
                 </div>
             </div>
         </div>
