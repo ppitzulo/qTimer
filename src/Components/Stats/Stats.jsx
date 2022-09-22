@@ -80,9 +80,9 @@ const Stats = ({isActive}) => {
                 <div className="Times">
                     {
                         pastSolves.slice(0).reverse().map((solve) => (
-                            <div>
-                                <span id="id">{solve.id}.</span>
-                                <span id="solve">{formatTime(solve.time)}</span>
+                            <div key={solve.id}>
+                                <span id="id" >{solve.id}.</span>
+                                <span id="solve" >{formatTime(solve.time)}</span>
                             </div>
                         ))
                     }
