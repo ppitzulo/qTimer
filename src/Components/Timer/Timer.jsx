@@ -4,16 +4,18 @@ import './Timer.css';
 import { db } from '../../db';
 
 
-const Timer = () => {
+const Timer = ({isActive, setIsActive}) => {
     const [time, setTime] = useState(0);
-    const [isActive, setIsActive] = useState(false);
 
     const firstRun = useRef(true);
     const start = useRef(0);
     
     React.useEffect(() => {
-        if (!isActive) {
-            addTime(time);
+        if (!firstRun.current) {
+            if (!isActive) {
+                addTime(time);
+                console.log("Added time");
+            }
         }
     }, [isActive, time]);
 

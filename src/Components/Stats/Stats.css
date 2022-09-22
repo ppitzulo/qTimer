@@ -29,8 +29,8 @@ li {
 }
 
 .StatsContainer {
-    margin-top: auto;
-    margin-bottom: auto;
+    /* margin-top: auto; */
+    /* margin-bottom: auto; */
     width: 15%;
     border-right: 1px solid grey;
     border-radius: 1rem;

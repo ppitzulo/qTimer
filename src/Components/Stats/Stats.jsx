@@ -5,22 +5,38 @@ import { useLiveQuery } from 'dexie-react-hooks';
 import { db } from '../../db'
 
 
-const Stats = () => {
+const Stats = ({isActive}) => {
     const [pastSolves, setPastSolves] = useState([]);
 
     React.useEffect(() => {
-        db.pastSolves.orderBy('id').toArray().then(result => {
-            for (let i = 0; i < result.length; i++) {
-                setPastSolves(array => [...array, {id: result[i].id, time: result[i].time}]);
-            }
-        })
-    }, []);
+        console.log("isacasdf")
+        if (!isActive) {
+            // console.log("!isActive")
+            // console.log("terhoaidf")
+            db.pastSolves.orderBy('id').toArray().then(result => {
+                console.log(result.length-1);
+                console.log(result)
+                // console.log("test")
+                // if (result.length == 0) {
+                //     for (let i = 0; i < result.length; i++) {
+                //                     // setPastSolves(array => [...array, {id: result[result.length-1].id, time: result[result.length-1].time}]);
+                //     //TODO: Figure out what this is adding the orig contents of the array twice.
+                //         setPastSolves(array => [...array, {id: result[i].id, time: result[i].time}]);
+                //     }
+                // }
+                // else {
+                    setPastSolves(result);
+                    // setPastSolves(array => [...array, {id: result[result.length-1].id, time: result[result.length-1].time}]);
+                // }
+        })}
+    }, [isActive]);
 
-    const updateSolves = useLiveQuery(() =>
-        db.pastSolves.orderBy('id').toArray().then(result => {
-                setPastSolves(array => [...array, {id: result[result.length-1].id, time: result[result.length-1].time}]);
-            console.log(pastSolves);
-        }));
+    // const updateSolves = useLiveQuery(() =>
+    //     db.pastSolves.orderBy('id').toArray().then(result => {
+    //             // if (result.length == 0) {return [];}
+    //             // setPastSolves(array => [...array, {id: result[result.length-1].id, time: result[result.length-1].time}]);
+    //             console.log("ran");
+    //     }));
 
     
     function formatTime(s) {
@@ -35,15 +51,20 @@ const Stats = () => {
     }
 
     function computeAverage(pastSolves, numOfSolves) {
-        console.log("Numsolves: " + numOfSolves);
-        console.log("pastSolvres lenght: " + pastSolves.length);
+        // console.log("Numsolves: " + numOfSolves);
+        // console.log("pastSolvres lenght: " + pastSolves.length);
+
         if (pastSolves.length < numOfSolves) {return 0}
         
         let solveTime = 0;
 
-        for (let i = pastSolves.length - (numOfSolves+1); i < pastSolves.length; i++) {
+        for (let i = pastSolves.length - 1; i > pastSolves.length - (numOfSolves - 1); i--) {
+            // console.log("i: " + i);
             solveTime += pastSolves[i].time;
         }
+        // for (let i = pastSolves.length - (numOfSolves+1); i < pastSolves.length; i++) {
+        //     solveTime += pastSolves[i].time;
+        // }
         return Math.floor(solveTime/numOfSolves);
     }
 
@@ -72,10 +93,14 @@ const Stats = () => {
                     </AreaChart>
                 </ResponsiveContainer>
             </div>
+            {                    console.log("ran history")}
+            {            console.log( pastSolves)}
             <div class="History">
                 {
                     pastSolves.slice(0).reverse().map((solve) => (
                         <div>
+                        {/* {console.log(solve)} */}
+
                             <span id="id">{solve.id}.</span>
                             <span id="solve">{formatTime(solve.time)}</span>
                         </div>
