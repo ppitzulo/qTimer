@@ -4,3 +4,8 @@
     font-weight: bold;
     text-align: center;
 }
+@media (max-width: 480px) {
+    .Scramble {
+        margin-top: 3rem;
+    }
+}

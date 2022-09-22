@@ -18,14 +18,18 @@ const Stats = ({isActive}) => {
     }, [isActive]);
     
     function formatTime(s) {
-        // let formattedTime = "";
-        var ms = s % 100;
-        s = (s - ms) / 100;
-        var secs = s % 60;
-        s = (s - secs) / 60;
-        var mins = s % 60;
+        let time = "";
 
-        return mins + ':' + secs + '.' + ms;
+        let ms = s % 100;
+        s = (s - ms) / 100;
+        let secs = s % 60;
+        s = (s - secs) / 60;
+        let mins = s % 60;
+
+        if (mins > 0) { time += mins + ':'; }
+        // if (secs > 0) { time += secs + '.'; }
+
+        return time + secs + '.' + ms;
     }
 
     function computeAverage(pastSolves, numOfSolves) {
@@ -58,21 +62,19 @@ const Stats = ({isActive}) => {
     }
 
     return (
-        <div class="Stats">
-            <div class="StatsContainer">
-                <ul>
-                    <li>
-                        Best: {formatTime(getBestTime(pastSolves))}
-                    </li>
-                    <li>
-                        Ao5: {formatTime(computeAverage(pastSolves, 5))}
-                    </li>
-                    <li>
-                        Ao12 {formatTime(computeAverage(pastSolves, 12))}
-                    </li>
-                </ul>
+        <div class="statsContainer">
+            <div class="Statistics bRadius">
+                <span>
+                    Best: {formatTime(getBestTime(pastSolves))}
+                </span>
+                <span>
+                    Ao5: {formatTime(computeAverage(pastSolves, 5))}
+                </span>
+                <span>
+                    Ao12 {formatTime(computeAverage(pastSolves, 12))}
+                </span>
             </div>
-            <div class="Graph">
+            <div class="Graph bRadius">
                 <ResponsiveContainer width="100%">
                     <AreaChart  data={pastSolves} options={{maintainAspectRatio: false}}>
                         <XAxis dataKey="id"/>
@@ -82,20 +84,17 @@ const Stats = ({isActive}) => {
                     </AreaChart>
                 </ResponsiveContainer>
             </div>
-            {                    console.log("ran history")}
-            {            console.log( pastSolves)}
-            <div class="History">
-                {
-                    pastSolves.slice(0).reverse().map((solve) => (
-                        <div>
-                        {/* {console.log(solve)} */}
-
-                            <span id="id">{solve.id}.</span>
-                            <span id="solve">{formatTime(solve.time)}</span>
-                        </div>
-                    ))
-                }
-            
+            <div class="timesContainer bRadius">
+                <div class="Times">
+                    {
+                        pastSolves.slice(0).reverse().map((solve) => (
+                            <div>
+                                <span id="id">{solve.id}.</span>
+                                <span id="solve">{formatTime(solve.time)}</span>
+                            </div>
+                        ))
+                    }
+                </div>
             </div>  
         </div>
     )
