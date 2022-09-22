@@ -35,7 +35,8 @@ const Stats = () => {
     }
 
     function computeAverage(pastSolves, numOfSolves) {
-        console.log(numOfSolves);
+        console.log("Numsolves: " + numOfSolves);
+        console.log("pastSolvres lenght: " + pastSolves.length);
         if (pastSolves.length < numOfSolves) {return 0}
         
         let solveTime = 0;
@@ -71,6 +72,17 @@ const Stats = () => {
                     </AreaChart>
                 </ResponsiveContainer>
             </div>
+            <div class="History">
+                {
+                    pastSolves.slice(0).reverse().map((solve) => (
+                        <div>
+                            <span id="id">{solve.id}.</span>
+                            <span id="solve">{formatTime(solve.time)}</span>
+                        </div>
+                    ))
+                }
+            
+            </div>  
         </div>
     )
 }
