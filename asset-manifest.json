@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/qTimer/static/css/main.0bbc808d.css",
+    "main.js": "/qTimer/static/js/main.c1c5ba38.js",
+    "static/js/787.cec40554.chunk.js": "/qTimer/static/js/787.cec40554.chunk.js",
+    "static/media/Icon.svg": "/qTimer/static/media/Icon.2956e22c993f8279c47db0593d90a806.svg",
+    "index.html": "/qTimer/index.html",
+    "main.0bbc808d.css.map": "/qTimer/static/css/main.0bbc808d.css.map",
+    "main.c1c5ba38.js.map": "/qTimer/static/js/main.c1c5ba38.js.map",
+    "787.cec40554.chunk.js.map": "/qTimer/static/js/787.cec40554.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.0bbc808d.css",
+    "static/js/main.c1c5ba38.js"
+  ]
+}
