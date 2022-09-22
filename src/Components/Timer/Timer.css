@@ -1,15 +1,8 @@
 .Segments {
     display: flex;
-    flex-direction: row;
-    /* margin: 0 auto; */
     justify-content: center;
     font-size: 6rem;
     font-family: 'Orbitron', sans-serif;
-    /* color: red; */
-    
-    /* width: 50%; */
-
-    /* width: 100%; */
 }
 
 .millisecondSegment {
@@ -18,10 +11,5 @@
 }
 
 .Timer {
-    /* padding-left: auto; */
-    height: 70%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    cursor: pointer;
+    padding-top: 5rem;
 }

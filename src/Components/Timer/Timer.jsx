@@ -66,21 +66,23 @@ const Timer = () => {
     }, []);
 
     return (
-        <div class="Timer">
+        <div class="TimerContainer">
             <Scrambler isActive={isActive}/>
-            <div class="Segments" onClick={() => setIsActive(isActive => !isActive)}>
-                <div class="minuteSegment" style={{color: "green"}}>
-                    <span>{extractDigit(4, time) === 0 ? "" : extractDigit(4,time) % 6}</span>
-                    <span>{extractDigit(3, time)}</span>
-                    <span>:</span>
-                </div>
-                <div class="secondSegment" style={{color: "green"}}>
-                    <span>{extractDigit(2, time)%6}</span>
-                    <span>{extractDigit(1, time)}</span>
-                    <span>.</span>
-                </div>
-                <div class="millisecondSegment" style={{color: "green"}}>
-                    <span>{extractDigit(0, time)}</span>                    
+            <div class="Timer">
+                <div class="Segments" onClick={() => setIsActive(isActive => !isActive)}>
+                    <div class="minuteSegment" style={{color: "green"}}>
+                        <span>{extractDigit(4, time) === 0 ? "" : extractDigit(4,time) % 6}</span>
+                        <span>{extractDigit(3, time)}</span>
+                        <span>:</span>
+                    </div>
+                    <div class="secondSegment" style={{color: "green"}}>
+                        <span>{extractDigit(2, time)%6}</span>
+                        <span>{extractDigit(1, time)}</span>
+                        <span>.</span>
+                    </div>
+                    <div class="millisecondSegment" style={{color: "green"}}>
+                        <span>{extractDigit(0, time)}</span>                    
+                    </div>
                 </div>
             </div>
         </div>

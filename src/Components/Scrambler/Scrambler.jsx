@@ -52,7 +52,7 @@ const Scrambler = ({ isActive }) => {
 
     return (
         <div class="Scramble">
-            <h1>{updateScramble}</h1>
+            {updateScramble}
         </div>
     )
 }

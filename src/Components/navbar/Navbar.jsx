@@ -6,8 +6,8 @@ const Navbar = () => {
     return (
         <div class="navbar">
                 <img src="images/rubic.svg"/>
-                <div class="test">
-                    Cube timer
+                <div class="Title">
+                    qTimer
                 </div>
         </div>
     )

@@ -5,7 +5,7 @@ import { Navbar, Timer, Stats} from './Components';
 function App() {
   return (
     <div className="App">
-      {/* <Navbar /> */}
+      <Navbar />
       <Timer />
       <Stats />
     </div>

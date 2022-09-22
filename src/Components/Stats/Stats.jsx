@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { AreaChart, Line, XAxis, Tooltip, Legend, YAxis, ResponsiveContainer, Area } from 'recharts';
+import { AreaChart, XAxis, Tooltip, YAxis, ResponsiveContainer, Area } from 'recharts';
 import './Stats.css';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { db } from '../../db'
@@ -62,7 +62,7 @@ const Stats = () => {
                 </ul>
             </div>
             <div class="Graph">
-                <ResponsiveContainer width="100%">
+                <ResponsiveContainer width="100%" height="100%">
                     <AreaChart  data={pastSolves} options={{maintainAspectRatio: false}}>
                         <XAxis dataKey="id"/>
                         <Tooltip />
